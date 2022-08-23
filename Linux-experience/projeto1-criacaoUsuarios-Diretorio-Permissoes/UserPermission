@@ -1,0 +1,29 @@
+#!/bin/bash
+
+echo "criando estrutura de usuarios, grupos, diretorio e permissoes...."
+
+mkdir /convidados
+mkdir /suporte
+
+groupadd guests
+groupadd suport
+
+chown root:guests /convidados/
+chown root:suport /suporte/
+
+chmod 760 guests /convidados/
+chmod 770 suport /suporte/
+
+useradd convidado1 -c "Acesso simplificado" -s /bin/bash -m -p $(openssl passwd -crypt passUser22!) -G guests 
+passwd convidado1 -e
+
+useradd suport -c "Acesso adm ao sistema" -s /bin/bash -m -p $(openssl passwd -crypt passUser22!) -G suport 
+passwd suport -e
+
+
+echo "Estrutura criada!!!"
+
+echo "Processo finalizado."
+
+
+
